@@ -1,0 +1,27 @@
+# Stage 1: Builder (same as before)
+FROM golang:1.24-alpine AS builder
+
+RUN apk add --no-cache git ca-certificates
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+# Build static binary with all dependencies embedded
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags="-w -s" -o healthcheck
+
+# Stage 2: Scratch (empty base)
+FROM scratch
+
+# Copy CA certificates from builder
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+# Copy binary
+COPY --from=builder /app/healthcheck /healthcheck
+
+# Run it
+ENTRYPOINT ["/healthcheck"]
+CMD ["check"]
