@@ -353,22 +353,6 @@ require (
 
 Only one direct dependency (Cobra), everything else is standard library!
 
-## 🔮 Future Enhancements
-
-Potential additions for learning or production use:
-
-- [ ] JSON output format (`--json` flag)
-- [ ] Config file support (YAML/JSON)
-- [ ] Retry logic with exponential backoff
-- [ ] Custom HTTP headers support
-- [ ] POST/PUT request support
-- [ ] Response body validation
-- [ ] Prometheus metrics export
-- [ ] Status code expectations (e.g., expect 201 for creation endpoints)
-- [ ] TLS certificate verification options
-- [ ] Rate limiting for large endpoint lists
-- [ ] Parallel execution limits (currently unlimited)
-
 ## 📚 Learning Resources
 
 If you're using this project to learn Go, here are key concepts to explore further:
